@@ -1,0 +1,4 @@
+[{ "name":"learn angular", "telefon":true  },
+ { "name":"build an angular app", "telefon":false },
+ { "name":"something", "telefon":false  },
+ { "name":"another todo", "telefon":true  }]
