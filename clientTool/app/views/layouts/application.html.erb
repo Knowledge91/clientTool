@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="ClientTool">
+<head>
+	<meta charset="utf-8">
+	<title>Client Tool</title>
+
+	<%= stylesheet_link_tag    'application', media: 'all' %>
+	<%= javascript_include_tag 'application' %>
+	<%= csrf_meta_tags %>
+</head>
+<body ng-controller="mainCtrl">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {{test}}
+
+      <table class="table">
+        <tr ng-repeat-start="client in clients" class="ng-class:client.status">
+          <td>{{client.id}}</td>
+          <td>{{client.country}}</td>
+          <td><a
+          href="https://www.google.de/?gws_rd=ssl#q={{client.name}}%20{{client.club}}"
+          target= "blank">{{client.name}}</a></td><td>{{client.club}}</td><td>{{client.telefon}}</td>
+          <td><a href="{{client.link}}" target="blank_">Profil</a></td>
+          <td>
+            <button type="button" class="btn btn-default btn-lg"
+            ng-click="updateStatus(client, 'warning'); commentEdit=true">
+              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-default btn-lg"
+            ng-click="updateStatus(client, 'success')">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-default btn-lg"
+            ng-click="updateStatus(client, 'danger')">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-default btn-lg"
+            ng-click="clientEdit=true">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
+            </button>
+          </td>
+        </tr>
+        <tr ng-show="clientEdit">
+          <td colspan="2">User edit:</td>
+          <td><input type="text" ng-model="client.name"/></td>
+          <td><input type="text" ng-model="client.club"/></td>
+          <td><input type="text" ng-model="client.telefon"/></td>
+        </tr>
+        <tr ng-show="clientEdit">
+          <td colspan="2">Comment edit:</td>
+          <td colspan="7"><input style="width: 100%" type="text" ng-model="client.comment"/></td>
+          <td>
+            <button type="button" class="btn btn-default btn-small"
+            ng-click="clientEdit=false">Save</button> 
+          </td>
+        </tr>
+        <tr ng-repeat-end ng-if="client.comment" class="ng-class:client.status">
+          <td>
+            Comments: {{name}} 
+          </td>
+          <td colspan="9">
+            {{client.comment}} 
+          </td>
+        <tr>
+      </table>
+
+    </div>
+  </div>
+</body>
+</html>
