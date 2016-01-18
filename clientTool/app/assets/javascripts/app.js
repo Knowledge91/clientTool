@@ -8,7 +8,9 @@ App.controller('mainCtrl', ['$scope', '$http', function($scope, $http) {
       $scope.clients = res.data;                
   });
   $scope.updateStatus = function(client, str){
-    client.status = str;
+		$http.patch('/clients/' + client.id, {status: str}).then(function(res) {
+			client.status = str;
+		});
   }
 }]);
 
