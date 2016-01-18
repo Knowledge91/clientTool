@@ -11,7 +11,6 @@
 <body ng-controller="mainCtrl">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {{test}}
 
       <table class="table">
         <tr ng-repeat-start="client in clients" class="ng-class:client.status">
@@ -23,7 +22,7 @@
           <td><a href="{{client.link}}" target="blank_">Profil</a></td>
           <td>
             <button type="button" class="btn btn-default btn-lg"
-            ng-click="updateStatus(client, 'warning'); commentEdit=true">
+            ng-click="updateStatus(client, 'warning')">
               <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 
             </button>
           </td>
@@ -41,36 +40,57 @@
           </td>
           <td>
             <button type="button" class="btn btn-default btn-lg"
-            ng-click="clientEdit=true">
+            ng-click="clientEdit(client)" data-toggle="modal" data-target="#myModal">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
             </button>
           </td>
         </tr>
-        <tr ng-show="clientEdit">
-          <td colspan="2">User edit:</td>
-          <td><input type="text" ng-model="client.name"/></td>
-          <td><input type="text" ng-model="client.club"/></td>
-          <td><input type="text" ng-model="client.telefon"/></td>
-        </tr>
-        <tr ng-show="clientEdit">
-          <td colspan="2">Comment edit:</td>
-          <td colspan="7"><input style="width: 100%" type="text" ng-model="client.comment"/></td>
-          <td>
-            <button type="button" class="btn btn-default btn-small"
-            ng-click="clientEdit=false">Save</button> 
-          </td>
-        </tr>
         <tr ng-repeat-end ng-if="client.comment" class="ng-class:client.status">
           <td>
-            Comments: {{name}} 
+            Comments: 
           </td>
           <td colspan="9">
             {{client.comment}} 
           </td>
         <tr>
       </table>
-
     </div>
+
+		<!-- Modal -->
+		<div ng-controller="editCtrl" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Edit Client</h4>
+		      </div>
+		      <div class="modal-body">
+						<table class="table">
+							<thead>
+								<th>Name</th>
+								<th>Club</th>
+								<th>Telefon</th>
+							</thead>
+        			<tr>
+        			  <td><input style="width:100%" type="text" ng-model="nameEdit" /></td>
+        			  <td><input style="width:100%" type="text" ng-model="clubEdit"/></td>
+        			  <td><input style="width:100%" type="text" ng-model="telefonEdit"/></td>
+							</tr>
+							<tr>
+								<td style="font-size: bold; text-align: right">Comment:</td>
+        			  <td colspan="2"><input style="width:100%" type="text" ng-model="commentEdit"/></td>
+        			</tr>
+						</table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="clientSave()">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Modal End -->
+
   </div>
 </body>
 </html>
